@@ -1,8 +1,14 @@
 from typing import Union
 
 from fastapi import FastAPI
+from fastapi import APIRouter
 
-app = FastAPI()
+from routers import bus, stock
+
+app = FastAPI(root_path="/api")
+
+app.include_router(stock.router)
+app.include_router(bus.router)
 
 
 @app.get("/")
