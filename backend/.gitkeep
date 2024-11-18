@@ -1,0 +1,4 @@
+Stock Trading backend submodule moved to: https://github.com/ryo-wijaya/pi-stock-trader
+Bus Timing backend submodule moved to: https://github.com/ryo-wijaya/pi-bus
+
+Both are referenced remotely via this project's docker-compose.
