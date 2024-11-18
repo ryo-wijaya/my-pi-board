@@ -1,23 +1,15 @@
-export async function getBusTimings() {
-  // Mocked data
-  return [
-    {
-      busstop: "Raffles Place",
-      busnumber: "97",
-      firstBusTime: "4 mins",
-      secondBusTime: "14 mins",
-    },
-    {
-      busstop: "Marina Bay",
-      busnumber: "36",
-      firstBusTime: "6 mins",
-      secondBusTime: "16 mins",
-    },
-    {
-      busstop: "Jurong East",
-      busnumber: "187",
-      firstBusTime: "2 mins",
-      secondBusTime: "12 mins",
-    },
-  ];
+export async function getBusTimings(busStopId, busService) {
+  try {
+    console.log("Backend API URL:", import.meta.env.VITE_API_BUS);
+    const response = await fetch(
+      `${import.meta.env.VITE_API_BUS}/bus-timings?bus_stop_id=${busStopId}&bus_service=${busService}`
+    );
+    if (!response.ok) {
+      throw new Error(`Failed to fetch bus timings for ${busStopId}, ${busService}`);
+    }
+    return await response.json();
+  } catch (error) {
+    console.error("error", error);
+    return null;
+  }
 }

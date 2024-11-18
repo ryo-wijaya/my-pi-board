@@ -18,6 +18,8 @@ services:
     ports:
       - "8002:8002"
     container_name: pi-bus
+    env_file:
+      - .env
 
   my-pi-board:
     build:

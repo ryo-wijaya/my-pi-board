@@ -4,9 +4,9 @@ A personal dashboard built with React + Vite. Meant to be ran 24/7 on a Raspberr
 
 Consumed 2 backend microservices to populate the dashboard:
 
-1. pi-stock-trader
+1. **pi-stock-trader**: https://github.com/ryo-wijaya/pi-stock-trader
    - Handle personal stock trading data display and stop-loss algorithms
-2. pi-bus
+2. **pi-bus**: https://github.com/ryo-wijaya/pi-bus
    - Handle bus timings data display
 
-Backend microservices are referenced remotely via docker-compose
+Backend microservices are referenced remotely via docker-compose.

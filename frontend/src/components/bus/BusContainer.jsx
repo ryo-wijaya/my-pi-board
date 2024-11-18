@@ -1,33 +1,43 @@
 import React, { useState, useEffect } from "react";
 import { BusCard } from "./BusCard";
+import { getBusTimings } from "../../api/busService";
+import { BUS_CONFIG, BUS_STOP_NAMES } from "../../../config";
 
 export default function BusContainer({ isDarkMode }) {
-  const [busData, setBusData] = useState([
-    {
-      busStop: "Raffles Place",
-      busNumber: "97",
-      firstBusTime: "4 mins",
-      secondBusTime: "14 mins",
-    },
-    {
-      busStop: "Marina Bay",
-      busNumber: "36",
-      firstBusTime: "6 mins",
-      secondBusTime: "16 mins",
-    },
-    {
-      busStop: "Jurong East",
-      busNumber: "187",
-      firstBusTime: "2 mins",
-      secondBusTime: "12 mins",
-    },
-  ]);
-
+  const [busData, setBusData] = useState([]);
   const [lastUpdated, setLastUpdated] = useState(new Date().toLocaleTimeString());
+  const [error, setError] = useState(null);
+
+  const fetchBusData = async () => {
+    try {
+      const results = await Promise.all(
+        BUS_CONFIG.map(({ busStopId, busService }) => getBusTimings(busStopId, busService))
+      );
+
+      // Map bus stop IDs to their names
+      const combinedData = results.map((result, index) => ({
+        ...result,
+        busStop: BUS_STOP_NAMES[BUS_CONFIG[index].busStopId],
+        busNumber: BUS_CONFIG[index].busService,
+      }));
+
+      setBusData(combinedData);
+      setLastUpdated(new Date().toLocaleTimeString());
+      setError(null);
+    } catch (err) {
+      console.error(err);
+      setError("Failed to fetch bus data.");
+    }
+  };
+
+  useEffect(() => {
+    fetchBusData();
+    const interval = setInterval(fetchBusData, 60000);
+    return () => clearInterval(interval);
+  }, []);
 
   const refreshData = () => {
-    setBusData([...busData]); // Simulate fetching new data
-    setLastUpdated(new Date().toLocaleTimeString());
+    fetchBusData();
   };
 
   return (
@@ -51,8 +61,15 @@ export default function BusContainer({ isDarkMode }) {
           </button>
         </div>
       </div>
+      {error && <p className="text-danger">{error}</p>}
       {busData.map((bus, index) => (
-        <BusCard key={index} {...bus} isDarkMode={isDarkMode} />
+        <BusCard
+          key={index}
+          busStop={bus.busStop}
+          busNumber={bus.busNumber}
+          timings={bus.timings}
+          isDarkMode={isDarkMode}
+        />
       ))}
     </div>
   );
