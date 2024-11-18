@@ -1,33 +1,53 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
-import "./App.css";
+import React from "react";
+import BusContainer from "./components/bus/BusContainer";
+import StockContainer from "./components/stock/StockContainer";
 
 function App() {
-  const [count, setCount] = useState(0);
+  const [isDarkMode, setIsDarkMode] = React.useState(false);
 
-  const apiURL = import.meta.env.VITE_API_URL;
-  const busURL = import.meta.env.VITE_API_BUS;
+  const toggleTheme = () => setIsDarkMode(!isDarkMode);
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div
+      className={`container-fluid vh-100 d-flex flex-column ${
+        isDarkMode ? "bg-dark text-light" : "bg-white text-dark"
+      }`}
+      style={{ padding: "10px" }}
+    >
+      <button onClick={toggleTheme} className="btn btn-sm btn-outline-primary mb-3 align-self-end">
+        Toggle Mode
+      </button>
+
+      <div className="d-flex w-100 h-100">
+        <div
+          className={`${isDarkMode ? "bg-secondary text-light" : "bg-light text-dark"}`}
+          style={{
+            flex: "0 0 24.5%",
+            borderRadius: "8px",
+            padding: "15px",
+          }}
+        >
+          <BusContainer isDarkMode={isDarkMode} />
+        </div>
+
+        <div
+          style={{
+            flex: "0 0 1%",
+          }}
+        ></div>
+
+        <div
+          className={`${isDarkMode ? "bg-secondary text-light" : "bg-light text-dark"}`}
+          style={{
+            flex: "0 0 74.5%",
+            borderRadius: "8px",
+            padding: "15px",
+          }}
+        >
+          <StockContainer isDarkMode={isDarkMode} />
+        </div>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>count is {count}</button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">Click on the Vite and React logos to learn more</p>
-    </>
+    </div>
   );
 }
 
