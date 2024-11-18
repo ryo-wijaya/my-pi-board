@@ -30,9 +30,10 @@ export default function BusContainer({ isDarkMode }) {
     }
   };
 
+  // Pool every 45 sec
   useEffect(() => {
     fetchBusData();
-    const interval = setInterval(fetchBusData, 60000);
+    const interval = setInterval(fetchBusData, 45000);
     return () => clearInterval(interval);
   }, []);
 
