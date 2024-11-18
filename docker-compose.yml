@@ -25,3 +25,9 @@ services:
     ports:
       - "8000:8000"
     container_name: my-pi-board
+    volumes:
+      - ./frontend:/app:delegated
+      - /app/node_modules
+    command: ["npm", "run", "dev"]
+    environment:
+      - NODE_ENV=development
