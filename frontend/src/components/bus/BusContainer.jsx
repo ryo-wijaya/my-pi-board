@@ -1,11 +1,8 @@
 import React, { useState, useEffect } from "react";
-
 import { BusCard } from "./BusCard";
 
-import { getBusTimings } from "../../api/busService";
-
 export default function BusContainer({ isDarkMode }) {
-  const busData = [
+  const [busData, setBusData] = useState([
     {
       busStop: "Raffles Place",
       busNumber: "97",
@@ -24,11 +21,36 @@ export default function BusContainer({ isDarkMode }) {
       firstBusTime: "2 mins",
       secondBusTime: "12 mins",
     },
-  ];
+  ]);
+
+  const [lastUpdated, setLastUpdated] = useState(new Date().toLocaleTimeString());
+
+  const refreshData = () => {
+    setBusData([...busData]); // Simulate fetching new data
+    setLastUpdated(new Date().toLocaleTimeString());
+  };
 
   return (
     <div>
-      <h4 className="mb-5 text-center fw-bold">Bus Timings</h4>
+      <div className="d-flex justify-content-between align-items-center mb-5 mt-2">
+        <h4 className="fw-bold">Bus Timings</h4>
+        <div>
+          <small
+            className="me-3"
+            style={{
+              color: isDarkMode ? "#cfcfcf" : "#6c757d",
+            }}
+          >
+            Last Updated: {lastUpdated}
+          </small>
+          <button
+            onClick={refreshData}
+            className={`btn btn-sm ${isDarkMode ? "btn-light" : "btn-outline-primary"}`}
+          >
+            Refresh
+          </button>
+        </div>
+      </div>
       {busData.map((bus, index) => (
         <BusCard key={index} {...bus} isDarkMode={isDarkMode} />
       ))}
