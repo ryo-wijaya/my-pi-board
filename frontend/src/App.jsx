@@ -14,8 +14,19 @@ function App() {
       }`}
       style={{ padding: "10px" }}
     >
-      <button onClick={toggleTheme} className="btn btn-sm btn-outline-primary mb-3 align-self-end">
-        Toggle Mode
+      <button
+        onClick={toggleTheme}
+        className="btn btn-sm btn-outline-info mb-3 align-self-end d-flex align-items-center"
+      >
+        {isDarkMode ? (
+          <>
+            <i className="bi bi-brightness-high me-2"></i> Toggle Light Mode
+          </>
+        ) : (
+          <>
+            <i className="bi bi-moon-stars me-2"></i> Toggle Dark Mode
+          </>
+        )}
       </button>
 
       <div className="d-flex w-100 h-100">

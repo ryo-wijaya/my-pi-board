@@ -22,7 +22,7 @@ export default function StockCard({
     >
       <div className="card-body">
         <div className="d-flex justify-content-between align-items-center">
-          <h5 className="card-title text-primary mb-1">{stockLabel}</h5>
+          <h5 className="card-title text-warning mb-1">{stockLabel}</h5>
           <span
             className={`badge rounded-pill ${totalProfitOrLoss >= 0 ? "bg-success" : "bg-danger"}`}
             style={{
@@ -35,7 +35,7 @@ export default function StockCard({
           </span>
         </div>
 
-        <h6 className="text-warning fw-bold" style={{ fontSize: "1.2rem", marginBottom: "10px" }}>
+        <h6 className="text-primary fw-bold" style={{ fontSize: "1.2rem", marginBottom: "10px" }}>
           ${currentPrice.toFixed(2)}
         </h6>
 
