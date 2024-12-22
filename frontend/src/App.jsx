@@ -33,7 +33,7 @@ function App() {
         <div
           className={`${isDarkMode ? "bg-secondary text-light" : "bg-light text-dark"}`}
           style={{
-            flex: "0 0 29.5%",
+            flex: "0 0 21.5%",
             borderRadius: "8px",
             padding: "15px",
           }}
@@ -50,7 +50,7 @@ function App() {
         <div
           className={`${isDarkMode ? "bg-secondary text-light" : "bg-light text-dark"}`}
           style={{
-            flex: "0 0 69.5%",
+            flex: "0 0 79.5%",
             borderRadius: "8px",
             padding: "15px",
           }}

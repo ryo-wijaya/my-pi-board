@@ -54,7 +54,7 @@ export default function BusContainer({ isDarkMode }) {
               color: isDarkMode ? "#cfcfcf" : "#6c757d",
             }}
           >
-            Last Updated: {lastUpdated}
+            Updated: {lastUpdated}
           </small>
           <button
             onClick={() => fetchBusData(true)}

@@ -2,75 +2,67 @@ import React from "react";
 import StockTicker from "./StockTicker";
 import StockNews from "./StockNews";
 import StockEvents from "./StockEvents";
+import StockHeatmap from "./StockHeatmap";
+import { tickerConfig, newsConfig, heatmapConfig, eventsConfig } from "../../../config";
 
-export default function StockContainer() {
-  const tickerSymbols = [
-    { description: "", proName: "NASDAQ:GOOG" },
-    { description: "", proName: "NASDAQ:NVDA" },
-    { description: "", proName: "NASDAQ:AMD" },
-    { description: "", proName: "NASDAQ:INTC" },
-    { description: "", proName: "NASDAQ:SMCI" },
-    { description: "", proName: "NASDAQ:OKTA" },
-    { description: "", proName: "NASDAQ:IBKR" },
-    { description: "", proName: "NASDAQ:RXRX" },
-    { description: "", proName: "NYSE:EVH" },
-    { description: "", proName: "NASDAQ:ASML" },
-  ];
-
-  const tickerConfig = {
-    symbols: tickerSymbols,
-    showSymbolLogo: true,
-    isTransparent: false,
-    displayMode: "compact",
-    colorTheme: "dark",
-    locale: "en",
-  };
-
-  const newsConfig = {
-    isTransparent: false,
-    displayMode: "regular",
-    width: "100%",
-    height: "100%",
-    colorTheme: "dark",
-    locale: "en",
-  };
-
-  const eventsConfig = {
-    width: "100%",
-    height: "100%",
-    colorTheme: "dark",
-    isTransparent: false,
-    locale: "en",
-    importanceFilter: "0,1",
-    countryFilter: "us,eu",
-  };
-
+export default function StockContainer({ isDarkMode }) {
   return (
     <div
       style={{
         display: "grid",
         gridTemplateRows: "15% 85%",
         height: "100vh",
+        position: "relative",
       }}
     >
-      <div style={{ marginBottom: "5px" }}>
-        <StockTicker config={tickerConfig} />
+      <div style={{ zIndex: 2 }}>
+        <StockTicker config={{ ...tickerConfig, colorTheme: isDarkMode ? "dark" : "light" }} />
       </div>
 
       <div
         style={{
           display: "grid",
-          gridTemplateColumns: "50% 50%",
-          gap: "5px",
+          gridTemplateColumns: "40% 60%",
+          gap: "0",
           height: "100%",
+          position: "relative",
+          top: "-40px", // Adjust negative margin between ticker and bottom section here
         }}
       >
         <div style={{ height: "100%" }}>
-          <StockNews feedMode="market" config={{ ...newsConfig, market: "stock" }} />
+          <StockNews
+            feedMode="market"
+            config={{
+              ...newsConfig,
+              market: "stock",
+              colorTheme: isDarkMode ? "dark" : "light",
+            }}
+          />
         </div>
 
-        <div style={{ height: "100%" }}>
-          <StockEvents config={eventsConfig} />
+        <div
+          style={{
+            display: "grid",
+            gridTemplateRows: "60% 40%",
+            gap: "0",
+          }}
+        >
+          <div style={{ height: "100%" }}>
+            <StockHeatmap
+              config={{
+                ...heatmapConfig,
+                colorTheme: isDarkMode ? "dark" : "light",
+              }}
+            />
+          </div>
+          <div style={{ height: "100%" }}>
+            <StockEvents
+              config={{
+                ...eventsConfig,
+                colorTheme: isDarkMode ? "dark" : "light",
+              }}
+            />
+          </div>
         </div>
       </div>
     </div>
