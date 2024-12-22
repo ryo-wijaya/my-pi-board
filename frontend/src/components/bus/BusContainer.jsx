@@ -1,20 +1,25 @@
 import React, { useState, useEffect } from "react";
-import { BusCard } from "./BusCard";
+import { isWithinPollingSchedule, initializeToast } from "../../util";
+import { POLLING_INTERVAL_MS, BUS_CONFIG, BUS_STOP_NAMES } from "../../../config";
 import { getBusTimings } from "../../api/busService";
-import { BUS_CONFIG, BUS_STOP_NAMES } from "../../../config";
+import { BusCard } from "./BusCard";
 
 export default function BusContainer({ isDarkMode }) {
   const [busData, setBusData] = useState([]);
   const [lastUpdated, setLastUpdated] = useState(new Date().toLocaleTimeString());
   const [error, setError] = useState(null);
 
-  const fetchBusData = async () => {
+  const fetchBusData = async (manual = false) => {
+    if (!manual && !isWithinPollingSchedule()) {
+      console.log("Outside polling schedule, skipping automatic API call.");
+      return;
+    }
+
     try {
       const results = await Promise.all(
         BUS_CONFIG.map(({ busStopId, busService }) => getBusTimings(busStopId, busService))
       );
 
-      // Map bus stop IDs to their names
       const combinedData = results.map((result, index) => ({
         ...result,
         busStop: BUS_STOP_NAMES[BUS_CONFIG[index].busStopId],
@@ -26,20 +31,17 @@ export default function BusContainer({ isDarkMode }) {
       setError(null);
     } catch (err) {
       console.error(err);
-      setError("Failed to fetch bus data.");
+      const errorMessage = err.response?.data?.detail || "Failed to fetch bus data.";
+      setError(errorMessage);
+      setTimeout(() => initializeToast("errorToast"), 0);
     }
   };
 
-  // Pool every 45 sec
   useEffect(() => {
     fetchBusData();
-    const interval = setInterval(fetchBusData, 45000);
+    const interval = setInterval(() => fetchBusData(false), POLLING_INTERVAL_MS);
     return () => clearInterval(interval);
   }, []);
-
-  const refreshData = () => {
-    fetchBusData();
-  };
 
   return (
     <div>
@@ -55,14 +57,14 @@ export default function BusContainer({ isDarkMode }) {
             Last Updated: {lastUpdated}
           </small>
           <button
-            onClick={refreshData}
+            onClick={() => fetchBusData(true)}
             className={`btn btn-sm ${isDarkMode ? "btn-light" : "btn-outline-primary"}`}
           >
             Refresh
           </button>
         </div>
       </div>
-      {error && <p className="text-danger">{error}</p>}
+
       {busData.map((bus, index) => (
         <BusCard
           key={index}
@@ -72,6 +74,26 @@ export default function BusContainer({ isDarkMode }) {
           isDarkMode={isDarkMode}
         />
       ))}
+
+      {/* Bootstrap Toast */}
+      <div
+        id="errorToast"
+        className="toast position-fixed top-0 end-0 m-3 bg-danger text-white"
+        role="alert"
+        aria-live="assertive"
+        aria-atomic="true"
+      >
+        <div className="toast-header bg-danger text-white">
+          <strong className="me-auto">Error</strong>
+          <button
+            type="button"
+            className="btn-close btn-close-white"
+            data-bs-dismiss="toast"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div className="toast-body">{error}</div>
+      </div>
     </div>
   );
 }

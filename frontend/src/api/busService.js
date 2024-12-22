@@ -1,6 +1,6 @@
 export async function getBusTimings(busStopId, busService) {
   try {
-    console.log("Backend API URL:", import.meta.env.VITE_API_BUS);
+    console.log("Hitting backend Bus Service API", import.meta.env.VITE_API_BUS);
     const response = await fetch(
       `${import.meta.env.VITE_API_BUS}/bus-timings?bus_stop_id=${busStopId}&bus_service=${busService}`
     );
