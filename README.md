@@ -53,7 +53,6 @@ export const POLLING_SCHEDULE = {
   },
 };
 
-// Modify according to
 export const STOCK_TICKER_SYMBOLS = [
   { description: "", proName: "NASDAQ:GOOG" },
   { description: "", proName: "NASDAQ:NVDA" },
