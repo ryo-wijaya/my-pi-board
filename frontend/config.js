@@ -23,7 +23,7 @@ export const POLLING_SCHEDULE = {
   },
 };
 
-export const tickerSymbols = [
+export const STOCK_TICKER_SYMBOLS = [
   { description: "", proName: "NASDAQ:GOOG" },
   { description: "", proName: "NASDAQ:NVDA" },
   { description: "", proName: "NASDAQ:AMD" },
@@ -36,8 +36,8 @@ export const tickerSymbols = [
   { description: "", proName: "NASDAQ:ASML" },
 ];
 
-export const tickerConfig = {
-  symbols: tickerSymbols,
+export const STOCK_TICKER_CONFIG = {
+  symbols: STOCK_TICKER_SYMBOLS,
   showSymbolLogo: true,
   isTransparent: false,
   displayMode: "compact",
@@ -45,7 +45,7 @@ export const tickerConfig = {
   locale: "en",
 };
 
-export const newsConfig = {
+export const STOCK_NEWS_CONFIG = {
   isTransparent: false,
   displayMode: "regular",
   width: "100%",
@@ -54,7 +54,7 @@ export const newsConfig = {
   locale: "en",
 };
 
-export const eventsConfig = {
+export const STOCK_EVENTS_CONFIG = {
   width: "100%",
   height: "100%",
   colorTheme: "dark",
@@ -64,7 +64,7 @@ export const eventsConfig = {
   countryFilter: "us,eu",
 };
 
-export const heatmapConfig = {
+export const STOCK_HEATMAP_CONFIG = {
   exchanges: [],
   dataSource: "SPX500",
   grouping: "sector",

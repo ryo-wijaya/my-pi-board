@@ -3,7 +3,12 @@ import StockTicker from "./StockTicker";
 import StockNews from "./StockNews";
 import StockEvents from "./StockEvents";
 import StockHeatmap from "./StockHeatmap";
-import { tickerConfig, newsConfig, heatmapConfig, eventsConfig } from "../../../config";
+import {
+  STOCK_TICKER_CONFIG,
+  STOCK_NEWS_CONFIG,
+  STOCK_HEATMAP_CONFIG,
+  STOCK_EVENTS_CONFIG,
+} from "../../../config";
 
 export default function StockContainer({ isDarkMode }) {
   return (
@@ -16,7 +21,7 @@ export default function StockContainer({ isDarkMode }) {
       }}
     >
       <div style={{ zIndex: 2 }}>
-        <StockTicker config={{ ...tickerConfig, colorTheme: isDarkMode ? "dark" : "light" }} />
+        <StockTicker config={{ ...STOCK_TICKER_CONFIG, colorTheme: isDarkMode ? "dark" : "light" }} />
       </div>
 
       <div
@@ -33,7 +38,7 @@ export default function StockContainer({ isDarkMode }) {
           <StockNews
             feedMode="market"
             config={{
-              ...newsConfig,
+              ...STOCK_NEWS_CONFIG,
               market: "stock",
               colorTheme: isDarkMode ? "dark" : "light",
             }}
@@ -50,7 +55,7 @@ export default function StockContainer({ isDarkMode }) {
           <div style={{ height: "100%" }}>
             <StockHeatmap
               config={{
-                ...heatmapConfig,
+                ...STOCK_HEATMAP_CONFIG,
                 colorTheme: isDarkMode ? "dark" : "light",
               }}
             />
@@ -58,7 +63,7 @@ export default function StockContainer({ isDarkMode }) {
           <div style={{ height: "100%" }}>
             <StockEvents
               config={{
-                ...eventsConfig,
+                ...STOCK_EVENTS_CONFIG,
                 colorTheme: isDarkMode ? "dark" : "light",
               }}
             />
