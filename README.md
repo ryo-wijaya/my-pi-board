@@ -23,7 +23,7 @@ Backend microservices are referenced remotely via docker-compose.
 
 ### Usage
 
-My Raspberry Pi pulls from this repository thrice a day via a CRON job. This means that configuration updates will only take effect thrice a day.
+My Raspberry Pi pulls from this repository thrice a day via a CRON job. This means that configuration updates will only take effect thrice a day. Bus timings currently poll every 45 seconds during certain days and certain times.
 
 Configure parameters via `pi\my-pi-board\frontend\config.js`. Current Configurations:
 
@@ -68,7 +68,7 @@ export const STOCK_TICKER_SYMBOLS = [
 ];
 
 export const STOCK_TICKER_CONFIG = {
-  symbols: tickerSymbols,
+  symbols: STOCK_TICKER_SYMBOLS,
   showSymbolLogo: true,
   isTransparent: false,
   displayMode: "compact",
