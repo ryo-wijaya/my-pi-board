@@ -11,6 +11,16 @@ Consumed backend microservices to populate the dashboard:
 
 Backend microservices are referenced remotely via docker-compose.
 
+### Demo
+
+**Dark Mode**
+
+![Dark Mode Demo](./static/dashboard-dark-gif.gif)
+
+**Light Mode**
+
+![Light Mode Demo](./static/dashboard-light-gif.gif)
+
 ### Usage
 
 My Raspberry Pi pulls from this repository thrice a day via a CRON job. This means that configuration updates will only take effect thrice a day.
