@@ -9,12 +9,11 @@ function App() {
 
   return (
     <div
-      className={`container-fluid vh-100 d-flex flex-column ${
+      className={`container-fluid vh-100 d-flex flex-column overflow-hidden ${
         isDarkMode ? "bg-dark text-light" : "bg-white text-dark"
       }`}
-      style={{ padding: "10px" }}
     >
-      <div className="d-flex justify-content-between align-items-center mb-3">
+      <div className="d-flex justify-content-between align-items-center mb-3 px-3">
         <h3 className="m-0 d-flex align-items-center">🐶 My Personal Dashboard</h3>
         <button onClick={toggleTheme} className="btn btn-sm btn-outline-info d-flex align-items-center">
           {isDarkMode ? (
@@ -29,7 +28,7 @@ function App() {
         </button>
       </div>
 
-      <div className="d-flex w-100 h-100">
+      <div className="d-flex w-100 h-100 px-3">
         <div
           className={`${isDarkMode ? "bg-secondary text-light" : "bg-light text-dark"}`}
           style={{

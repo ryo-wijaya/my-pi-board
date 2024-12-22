@@ -3,7 +3,7 @@ import React from "react";
 export function BusCard({ busStop, busNumber, timings, isDarkMode }) {
   return (
     <div
-      className={`card m-4 ${isDarkMode ? "bg-dark text-light" : "bg-light text-dark"}`}
+      className={`card m-1 ${isDarkMode ? "bg-dark text-light" : "bg-light text-dark"}`}
       style={{
         borderRadius: "8px",
         border: "none",

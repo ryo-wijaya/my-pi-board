@@ -23,10 +23,10 @@ export default function StockContainer({ isDarkMode }) {
         style={{
           display: "grid",
           gridTemplateColumns: "40% 60%",
-          gap: "0",
+          gap: "5px", // Slight gap added between News, Heatmap, and Events
           height: "100%",
           position: "relative",
-          top: "-40px", // Adjust negative margin between ticker and bottom section here
+          top: "-50px",
         }}
       >
         <div style={{ height: "100%" }}>
@@ -44,7 +44,7 @@ export default function StockContainer({ isDarkMode }) {
           style={{
             display: "grid",
             gridTemplateRows: "60% 40%",
-            gap: "0",
+            gap: "5px", // Slight gap added between Heatmap and Events
           }}
         >
           <div style={{ height: "100%" }}>
