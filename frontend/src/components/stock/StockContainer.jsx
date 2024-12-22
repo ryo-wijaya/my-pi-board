@@ -31,7 +31,7 @@ export default function StockContainer({ isDarkMode }) {
           gap: "5px", // Slight gap added between News, Heatmap, and Events
           height: "100%",
           position: "relative",
-          top: "-30px",
+          top: "-42px",
         }}
       >
         <div style={{ height: "100%" }}>
