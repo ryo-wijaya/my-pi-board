@@ -1,25 +1,35 @@
 version: "3.9"
 
 services:
-  frontend:
+  pi-stock-trader:
+    build:
+      context: https://github.com/ryo-wijaya/pi-stock-trader.git
+      args:
+        - --branch=main
+    ports:
+      - "8001:8001"
+    container_name: pi-stock-trader
+
+  pi-bus:
+    build:
+      context: https://github.com/ryo-wijaya/pi-bus.git
+      args:
+        - --branch=main
+    ports:
+      - "8002:8002"
+    container_name: pi-bus
+    env_file:
+      - .env
+
+  my-pi-board:
     build:
       context: ./frontend
     ports:
-      - "4000:4000"
-    volumes:
-      - ./frontend:/app
-      - /app/node_modules
-    command: ["npm", "run", "dev", "--", "--host", "0.0.0.0"]
-
-  backend:
-    build:
-      context: ./backend
-    ports:
       - "8000:8000"
+    container_name: my-pi-board
     volumes:
-      - ./backend:/app
-    command: ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
-
-networks:
-  default:
-    name: app-network
+      - ./frontend:/app:delegated
+      - /app/node_modules
+    command: ["npm", "run", "dev"]
+    environment:
+      - NODE_ENV=development

@@ -1,23 +1,3 @@
-## My Raspberry Pi Personal Dashboard
-
-A personal dashboard built with React + Vite. Meant to be ran 24/7 on a Raspberry Pi 5 and a 15.6 inch 16:9 1920 x 1080 resolution display.
-
-Consumed backend microservices to populate the dashboard:
-
-1. **pi-stock-trader (deprecated)**: Now handled via TradingView widgets and parameterized inputs
-   - Handle personal stock trading data display
-2. **pi-bus**: https://github.com/ryo-wijaya/pi-bus
-   - Handle bus timings data display
-
-Backend microservices are referenced remotely via docker-compose.
-
-### Usage
-
-My Raspberry Pi pulls from this repository thrice a day via a CRON job. This means that configuration updates will only take effect thrice a day.
-
-Configure parameters via `pi\my-pi-board\frontend\config.js`. Current Configurations:
-
-```js
 export const BUS_CONFIG = [
   { busStopId: "03059", busService: "10" },
   { busStopId: "03059", busService: "57" },
@@ -43,7 +23,6 @@ export const POLLING_SCHEDULE = {
   },
 };
 
-// Modify according to
 export const STOCK_TICKER_SYMBOLS = [
   { description: "", proName: "NASDAQ:GOOG" },
   { description: "", proName: "NASDAQ:NVDA" },
@@ -58,7 +37,7 @@ export const STOCK_TICKER_SYMBOLS = [
 ];
 
 export const STOCK_TICKER_CONFIG = {
-  symbols: tickerSymbols,
+  symbols: STOCK_TICKER_SYMBOLS,
   showSymbolLogo: true,
   isTransparent: false,
   displayMode: "compact",
@@ -102,11 +81,3 @@ export const STOCK_HEATMAP_CONFIG = {
   width: "100%",
   height: "100%",
 };
-```
-
-### Commands
-
-1. Spin up services with image rebuild
-   ```bash
-      docker-compose up --build
-   ```
