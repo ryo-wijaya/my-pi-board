@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { isWithinPollingSchedule, initializeToast } from "../../util";
+import { isWithinPollingSchedule } from "../../util";
 import { POLLING_INTERVAL_MS, BUS_CONFIG, BUS_STOP_NAMES } from "../../../config";
 import { getBusTimings } from "../../api/busService";
 import { BusCard } from "./BusCard";
@@ -8,6 +8,15 @@ export default function BusContainer({ isDarkMode }) {
   const [busData, setBusData] = useState([]);
   const [lastUpdated, setLastUpdated] = useState(new Date().toLocaleTimeString());
   const [error, setError] = useState(null);
+
+  const showToast = (message) => {
+    const toastElement = document.getElementById("errorToast");
+    if (toastElement) {
+      toastElement.querySelector(".toast-body").textContent = message;
+      const toast = new bootstrap.Toast(toastElement);
+      toast.show();
+    }
+  };
 
   const fetchBusData = async (manual = false) => {
     if (!manual && !isWithinPollingSchedule()) {
@@ -33,7 +42,7 @@ export default function BusContainer({ isDarkMode }) {
       console.error(err);
       const errorMessage = err.response?.data?.detail || "Failed to fetch bus data.";
       setError(errorMessage);
-      setTimeout(() => initializeToast("errorToast"), 0);
+      showToast(errorMessage);
     }
   };
 
@@ -75,7 +84,6 @@ export default function BusContainer({ isDarkMode }) {
         />
       ))}
 
-      {/* Bootstrap Toast */}
       <div
         id="errorToast"
         className="toast position-fixed top-0 end-0 m-3 bg-danger text-white"
