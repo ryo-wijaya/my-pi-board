@@ -1,13 +1,13 @@
 ## My Raspberry Pi Personal Dashboard
 
-A personal dashboard built with React + Vite. Meant to be ran 24/7 on a Raspberry Pi 5 and a 15.6 inch 16:9 1920 x 1080 resolution display.
+A personal dashboard built with React + Vite. Meant to be ran 24/7 on a Raspberry Pi 5 and a 15.6 inch 16:9 1920 x 1080 resolution display in my room.
 
 Consumed backend microservices to populate the dashboard:
 
 1. **pi-stock-trader (deprecated)**: Now handled via TradingView widgets and parameterized inputs
-   - Handle personal stock trading data display
+   - Handle personal stock trading data display, including tickers, news, heatmap, and events.
 2. **pi-bus**: https://github.com/ryo-wijaya/pi-bus
-   - Handle bus timings data display
+   - Handle bus timings data display.
 
 Backend microservices are referenced remotely via docker-compose.
 
