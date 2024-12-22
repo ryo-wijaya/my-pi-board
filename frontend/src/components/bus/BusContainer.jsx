@@ -46,7 +46,7 @@ export default function BusContainer({ isDarkMode }) {
   return (
     <div>
       <div className="d-flex justify-content-between align-items-center mb-5 mt-2">
-        <h4 className="fw-bold">Bus Timings</h4>
+        <h4 className="fw-bold"></h4>
         <div>
           <small
             className="me-3"
@@ -54,7 +54,7 @@ export default function BusContainer({ isDarkMode }) {
               color: isDarkMode ? "#cfcfcf" : "#6c757d",
             }}
           >
-            Updated: {lastUpdated}
+            Last Updated: {lastUpdated}
           </small>
           <button
             onClick={() => fetchBusData(true)}
